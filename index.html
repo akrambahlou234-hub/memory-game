@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة الذكاء - Memory Game</title>
+    <meta name="description" content="لعبة تطابق البطاقات لتحسين الذاكرة والتركيز">
+    <meta name="theme-color" content="#764ba2">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <meta name="apple-mobile-web-app-title" content="لعبة الذكاء">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTkyIiBoZWlnaHQ9IjE5MiIgdmlld0JveD0iMCAwIDE5MiAxOTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIxOTIiIGhlaWdodD0iMTkyIiByeD0iMjQiIGZpbGw9InVybCgjZ3JhZGllbnQpIi8+CjxwYXRoIGQ9Ik05NiA0OEM3My45MDg2IDQ4IDU2IDY1LjkwODYgNTYgODhWMTQ0QzU2IDE2Ni4wOTEgNzMuOTA4NiAxODQgOTYgMTg0QzExOC4wOTEgMTg0IDEzNiAxNjYuMDkxIDEzNiAxNDRWODhDMTM2IDY1LjkwODYgMTE4LjA5MSA0OCA5NiA0OFoiIGZpbGw9IndoaXRlIi8+CjxwYXRoIGQ9Ik04OCA3MkM4OCA2OS43OTAxIDg5Ljc5MDEgNjggOTIgNjhIMTAwQzEwMi4yMSA2OCAxMDQgNjkuNzkwMSAxMDQgNzJWMTA0QzEwNCAxMDYuMjEgMTAyLjIxIDEwOCAxMDAgMTA4SDkyQzg5Ljc5MDEgMTA4IDg4IDEwNi4yMSA4OCAxMDRWNzJaIiBmaWxsPSIjNjY3ZWVhIi8+CjxwYXRoIGQ9Ik04OCAxMjhDODggMTI1Ljc5IDE4OS43OTAxIDEyNCA5MiAxMjRIMTAwQzEwMi4yMSAxMjQgMTA0IDEyNS43OSAxMDQgMTI4VjE2MEMxMDQgMTYyLjIxIDEwMi4yMSAxNjQgMTAwIDE2NEg5MkM4OS43OTAxIDE2NCA4OCAxNjIuMjEgODggMTYwVjEyOFoiIGZpbGw9IiM3NjRiYTIiLz4KPGRlZnM+CjxsaW5lYXJHcmFkaWVudCBpZD0iZ3JhZGllbnQiIHgxPSIwJSIgeTE9IjAlIiB4Mj0iMTAwJSIgeTI9IjEwMCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdHlsZT0ic3RvcC1jb2xvcjojNjY3ZWVhO3N0b3Atb3BhY2l0eToxIiAvPgo8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0eWxlPSJzdG9wLWNvbG9yOiM3NjRiYTI7c3RvcC1vcGFjaXR5OjEiIC8+CjwvbGluZWFyR3JhZGllbnQ+CjwvZGVmcz4KPC9zdmc+">
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="animate__animated animate__bounceIn">🧠 لعبة الذكاء</h1>
+            <div class="stats">
+                <div class="stat">
+                    <span class="label">⏱️ الوقت:</span>
+                    <span id="timer">00:00</span>
+                </div>
+                <div class="stat">
+                    <span class="label">🔄 الحركات:</span>
+                    <span id="moves">0</span>
+                </div>
+                <div class="stat">
+                    <span class="label">⭐ النقاط:</span>
+                    <span id="score">0</span>
+                </div>
+            </div>
+        </header>
+
+        <div class="game-controls">
+            <button id="startBtn" class="btn primary animate__animated animate__pulse animate__infinite">🎮 ابدأ اللعبة</button>
+            <button id="resetBtn" class="btn secondary">🔄 إعادة تعيين</button>
+            <select id="difficulty" class="difficulty-select">
+                <option value="easy">🟢 سهل (4×4)</option>
+                <option value="medium" selected>🟡 متوسط (6×6)</option>
+                <option value="hard">🔴 صعب (8×8)</option>
+            </select>
+            <button id="soundToggle" class="btn sound-btn">🔊</button>
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+
+        <div class="game-board" id="gameBoard">
+            <!-- البطاقات ستُضاف هنا ديناميكياً -->
+        </div>
+
+        <div class="message" id="message"></div>
+
+        <div class="achievements" id="achievements">
+            <h3>🏆 الإنجازات</h3>
+            <div class="achievement-list" id="achievementList">
+                <!-- الإنجازات ستُضاف هنا ديناميكياً -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal" id="winModal">
+        <div class="modal-content animate__animated animate__zoomIn">
+            <h2>🎉 مبروك! لقد فزت!</h2>
+            <div class="final-stats">
+                <p>⏱️ الوقت المستغرق: <span id="finalTime">00:00</span></p>
+                <p>🔄 عدد الحركات: <span id="finalMoves">0</span></p>
+                <p>⭐ النقاط: <span id="finalScore">0</span></p>
+                <p>🏆 المستوى: <span id="finalDifficulty">متوسط</span></p>
+            </div>
+            <div class="stars-container" id="starsContainer">
+                <!-- النجوم ستُضاف هنا ديناميكياً -->
+            </div>
+            <button id="playAgainBtn" class="btn primary">🎮 العب مرة أخرى</button>
+            <button id="shareBtn" class="btn secondary">📤 شارك النتيجة</button>
+        </div>
+    </div>
+
+    <div class="particles" id="particles"></div>
+
+    <!-- مؤثرات صوتية -->
+    <audio id="flipSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+    <audio id="matchSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+    <audio id="winSound" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBhYqFbF1fdJivrJBhNjVgodDbq2EcBj+a2/LDciUFLIHO8tiJNwgZaLvt559NEAxQp+PwtmMcBjiR1/LMeSwFJHfH8N2QQAoUXrTp66hVFApGn+DyvmwhBSuBzvLZiTYIG2m98OScTgwOUarm7blmGgU7k9n1unEiBC13yO/eizEIHWq+8+OWT" type="audio/wav">
+    </audio>
+
+    <script src="script.js"></script>
+    
+    <script>
+        // تسجيل Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('تم تسجيل Service Worker بنجاح:', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('فشل تسجيل Service Worker:', error);
+                    });
+            });
+        }
+        
+        // إضافة دعم PWA
+        let deferredPrompt;
+        
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // إظهار زر التثبيت
+            const installBtn = document.createElement('button');
+            installBtn.textContent = '📱 تثبيت التطبيق';
+            installBtn.className = 'btn primary';
+            installBtn.style.position = 'fixed';
+            installBtn.style.top = '20px';
+            installBtn.style.left = '20px';
+            installBtn.style.zIndex = '9999';
+            
+            installBtn.addEventListener('click', () => {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('تم قبول تثبيت التطبيق');
+                    }
+                    deferredPrompt = null;
+                    installBtn.remove();
+                });
+            });
+            
+            document.body.appendChild(installBtn);
+        });
+    </script>
+</body>
+</html>
